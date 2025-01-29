@@ -1,67 +1,85 @@
-import AddRecipe from './AddRecipe'
-
 import React, { useState } from 'react';
 import { useRecipeStore } from '../store/useRecipeStore';
-import RecipeList from '../components/RecipeList';
+import Swal from 'sweetalert2';
 
-const Home = () => {
-  const [activeTab, setActiveTab] = useState<string>('add');
-  const recipes = useRecipeStore((state) => state.recipes);
+interface Recipe {
+  id: number;
+  title: string;
+  ingredients: string;
+  steps: string;
+}
+
+const RecipeAdd: React.FC = () => {
+  const [title, setTitle] = useState<string>('');
+  const [ingredients, setIngredients] = useState<string>('');
+  const [steps, setSteps] = useState<string>('');
+  const addRecipe = useRecipeStore((state) => state.addRecipe);
+
+  const handleAddRecipe = () => {
+    if (title && ingredients && steps) {
+      const newRecipe: Recipe = {
+        id: Date.now(),
+        title,
+        ingredients,
+        steps,
+      };
+      addRecipe(newRecipe);
+      setTitle('');
+      setIngredients('');
+      setSteps('');
+
+      Swal.fire({
+        title: 'Recipe Added!',
+        text: 'Your recipe has been successfully added.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+      });
+    } else {
+      Swal.fire({
+        title: 'Missing Fields',
+        text: 'Please fill out all fields before adding a recipe.',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+      });
+    }
+  };
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gradient-to-b from-indigo-500 to-purple-600 text-white font-oswald">
-      {/* Header Section */}
-      <div className="top-10 text-center mt-8">
-        <h1 className="text-4xl sm:text-5xl font-extrabold drop-shadow-lg">
-          Welcome to <span className="text-yellow-300">Recipe App</span>
-        </h1>
-        <p className="text-lg sm:text-xl mt-2 text-gray-100">
-          Share and explore delicious recipes effortlessly!
-        </p>
+    <div className="p-4 sm:p-6 md:p-8 max-w-lg mx-auto bg-white shadow-md rounded-lg w-full">
+      <h2 className="text-xl sm:text-2xl font-bold text-center text-gray-800 mb-4">Add a New Recipe</h2>
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700">Recipe Name</label>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="mt-1 px-4 py-2 w-full border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
       </div>
-
-      {/* Tab Buttons */}
-      <div className="flex items-center justify-center mt-6">
-        <button
-          onClick={() => setActiveTab('add')}
-          className={`${
-            activeTab === 'add'
-              ? 'bg-yellow-300 text-gray-800'
-              : 'bg-gray-800 text-yellow-300'
-          } px-6 py-2 rounded-l-lg font-semibold`}
-        >
-          Add Recipe
-        </button>
-        <button
-          onClick={() => setActiveTab('explore')}
-          className={`${
-            activeTab === 'explore'
-              ? 'bg-yellow-300 text-gray-800'
-              : 'bg-gray-800 text-yellow-300'
-          } px-6 py-2 rounded-r-lg font-semibold`}
-        >
-          Explore Recipes
-        </button>
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700">Ingredients</label>
+        <textarea
+          value={ingredients}
+          onChange={(e) => setIngredients(e.target.value)}
+          className="mt-1 px-4 py-2 w-full border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
       </div>
-
-      {/* Content Section */}
-      <div className="flex-1 w-full mt-6 p-6">
-  <div className="flex items-center justify-center w-full h-full bg-gray-200 rounded-lg shadow-lg text-gray-800 flex-col">
-    {activeTab === 'add' ? (
-      <div className="flex flex-col items-center justify-between w-full h-full p-6 overflow-y-auto">
-        <h2 className="text-3xl font-bold mb-4">Add Your Recipe</h2>
-        <AddRecipe />
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700">How to Make</label>
+        <textarea
+          value={steps}
+          onChange={(e) => setSteps(e.target.value)}
+          className="mt-1 px-4 py-2 w-full border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
       </div>
-    ) : (
-      <div className="flex flex-col w-full h-full p-6 overflow-y-auto">
-        <RecipeList recipes={recipes} />
-      </div>
-    )}
-  </div>
-</div>
-
+      <button
+        onClick={handleAddRecipe}
+        className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-200"
+      >
+        Add Recipe
+      </button>
     </div>
   );
 };
 
-export default Home;
+export default RecipeAdd;
