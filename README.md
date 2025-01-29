@@ -1,50 +1,69 @@
-# React + TypeScript + Vite
+# Recipe App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern Single Page Application (SPA) built with **React (Vite)**, **Tailwind CSS**, and **Zustand** for state management. This app allows users to **add and view recipes** seamlessly.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 📌 **Add Recipes** with a title, ingredients, and steps.
+- 👀 **View Recipes** in an interactive UI.
+- 🎨 **Styled with Tailwind CSS** for a clean and responsive design.
+- ⚡ **State Management with Zustand** for efficient and lightweight store management.
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Frontend:** React (Vite)
+- **State Management:** Zustand
+- **Styling:** Tailwind CSS 
 
-- Configure the top-level `parserOptions` property like this:
+## 📦 Installation & Setup
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/your-username/recipe-app.git
+   cd recipe-app
+   ```
+2. **Install Dependencies:**
+   ```bash
+   npm install
+   ```
+   or
+   ```bash
+   yarn install
+   ```
+3. **Start the Development Server:**
+   ```bash
+   npm run dev
+   ```
+   The app should now be running at `http://localhost:5173/`
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 📚 Usage
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+1. **Adding a Recipe:**
+   - Click on add recipe 
+   - Fill in the recipe title, ingredients, and steps.
+   - Click "Add Recipe" to save it.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+2. **Viewing Recipes:**
+   - Browse the list of added recipes.
+   - Click on a recipe to expand and view its details.
+
+
+## 🔧 Additional Commands
+
+- **Build for Production:**
+  ```bash
+  npm run build
+  ```
+- **Preview Production Build:**
+  ```bash
+  npm run preview
+  ```
+
+## 📝 License
+This project is licensed under the **MIT License**.
+
+---
+
+### 💡 Need Improvements?
+Feel free to contribute! Fork the repo and submit a pull request. 🚀
+
